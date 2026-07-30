@@ -22,7 +22,7 @@ export function Results() {
       <div className="wrap relative">
         <div className="reveal max-w-2xl">
           <p className="eyebrow-brand">{results.eyebrow}</p>
-          <h2 className="display mt-7 text-[1.5rem] sm:text-[1.875rem] lg:text-[2.375rem]">
+          <h2 className="display mt-7 text-[1.375rem] sm:text-[1.6875rem] lg:text-[2.125rem]">
             {results.title.map((linea, i) => (
               <span
                 key={linea}

@@ -21,7 +21,7 @@ export function Pillars() {
         <div className="wrap relative py-20 lg:py-24">
           <div className="reveal max-w-2xl">
             <p className="eyebrow-brand">{pillars.eyebrow}</p>
-            <h2 className="display mt-7 text-[1.5rem] sm:text-[1.875rem] lg:text-[2.375rem]">
+            <h2 className="display mt-7 text-[1.375rem] sm:text-[1.6875rem] lg:text-[2.125rem]">
               {pillars.title.map((line, i) => (
                 <span key={line} className={`block ${i === 1 ? "tone" : ""}`}>
                   {line}
@@ -92,7 +92,7 @@ export function Pillars() {
                       líneas se meta dentro del aparato. */}
                   <div className="absolute inset-x-0 top-0 max-h-[52%] overflow-hidden pt-1">
                     <span className="pixel text-xs text-ink-soft">{pillar.index}</span>
-                    <h3 className="display mt-3 text-[1.25rem] leading-tight lg:text-[1.5rem]">
+                    <h3 className="display mt-3 text-[1.125rem] leading-tight lg:text-[1.375rem]">
                       {pillar.name}
                     </h3>
                     <p className="eyebrow mt-3 text-ink-mid">{pillar.tagline}</p>

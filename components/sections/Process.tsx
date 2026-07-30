@@ -11,7 +11,7 @@ export function Process() {
               Sin sticky, la restricción desapareció. */}
           <div className="reveal lg:col-span-5">
             <p className="eyebrow-brand">{process.eyebrow}</p>
-            <h2 className="display mt-7 text-[1.5rem] sm:text-[1.875rem] lg:text-[2.25rem]">
+            <h2 className="display mt-7 text-[1.375rem] sm:text-[1.6875rem] lg:text-[2rem]">
               {process.title.map((linea, i) => (
                 <span
                   key={linea}
@@ -61,7 +61,7 @@ export function Process() {
                 <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
                   <div className="flex items-baseline gap-3">
                     <span className="pixel text-xs text-ink-soft">{paso.index}</span>
-                    <h3 className="display text-[1.125rem] leading-none lg:text-[1.25rem]">
+                    <h3 className="display text-[1rem] leading-none lg:text-[1.125rem]">
                       {paso.name}
                     </h3>
                   </div>

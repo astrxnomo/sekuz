@@ -17,7 +17,7 @@ export function Faq() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
           <div className="reveal lg:col-span-4">
             <p className="eyebrow-brand">{faq.eyebrow}</p>
-            <h2 className="display mt-7 text-[1.5rem] sm:text-[1.875rem] lg:text-[2.25rem]">
+            <h2 className="display mt-7 text-[1.375rem] sm:text-[1.6875rem] lg:text-[2rem]">
               {faq.title.map((linea, i) => (
                 <span
                   key={linea}

@@ -13,7 +13,7 @@ export function FinalCta() {
       {/* El padding inferior es generoso a propósito: separa los botones de
           la cumbre para que ni el texto ni el CTA compitan con la montaña. */}
       <div className="reveal wrap relative pb-56 pt-20 text-center lg:pb-72 lg:pt-24">
-        <h2 className="display mx-auto max-w-3xl text-[1.5rem] sm:text-[2rem] lg:text-[2.75rem]">
+        <h2 className="display mx-auto max-w-3xl text-[1.375rem] sm:text-[1.8125rem] lg:text-[2.4375rem]">
           {finalCta.title.map((linea, i) => (
             <span
               key={linea}

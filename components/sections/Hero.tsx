@@ -14,7 +14,7 @@ export function Hero() {
 
           {/* El pixel es monoespaciado: al mismo cuerpo ocupa mucho más width
               que una sans, así que la escala va deliberadamente contenida. */}
-          <h1 className="display mt-7 text-[1.75rem] sm:text-[2.375rem] lg:text-[3rem]">
+          <h1 className="display mt-7 text-[1.5625rem] sm:text-[2.125rem] lg:text-[2.6875rem]">
             {hero.title.map((linea, i) => (
               <span
                 key={linea}

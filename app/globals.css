@@ -60,21 +60,41 @@
     background-color: var(--cream);
     color: var(--ink-mid);
     font-family: var(--font-mono), ui-monospace, monospace;
-    /* 16px es el mínimo de accesibilidad para cuerpo de texto; antes estaba
-       en 15px. Con monoespaciada el interlineado alto no es opcional: es lo
-       que compensa la rigidez de la rejilla en párrafos largos. */
-    font-size: 1rem;
-    line-height: 1.7;
+    /* Calibrado para monoespaciada, que a igual cuerpo ocupa bastante más
+       sitio que una proporcional y por eso el bloque se veía grande y suelto.
+
+       El cuerpo baja a 15px. Esto revierte a conciencia una decisión anterior
+       que lo había subido a 16px llamándolo «el mínimo de accesibilidad»:
+       WCAG no fija ningún tamaño mínimo de fuente, así que esa nota era más
+       tajante de lo que corresponde. Lo que sí exige — contraste AA — no
+       depende del cuerpo y se mantiene intacto. Aun así 15px es el suelo: por
+       debajo el texto empieza a pedir zoom, y la rejilla fija de la mono no
+       perdona.
+
+       La interletra negativa es lo que cierra el renglón sin encoger la letra.
+       Por debajo de −0.02em las monoespaciadas solapan remates y se pierde la
+       ventaja de lectura que da la rejilla; −0.012em queda con margen.
+
+       El interlineado sigue siendo alto a propósito: es lo que compensa la
+       rigidez de la rejilla en párrafos largos. Solo baja lo justo. */
+    font-size: 0.9375rem;
+    line-height: 1.62;
+    letter-spacing: -0.012em;
   }
 
-  /* Medida de lectura. La monoespaciada ocupa más ancho por carácter, así que
-     el límite se declara en ch y no en rem: 68ch cae dentro del rango óptimo
-     de 45-75 caracteres por línea sea cual sea el cuerpo. */
+  /* Medida de lectura. Se declara en ch y no en rem porque en monoespaciada
+     `ch` es exactamente el ancho de un carácter: el número es literalmente
+     cuántos caracteres entran por línea, sea cual sea el cuerpo.
+
+     60ch y no 68ch. El rango legible llega hasta 75, así que 68 no estaba mal
+     — estaba en el techo, y un renglón en el techo es justo lo que hacía que
+     el texto se leyera separado. Acortar la medida es la palanca más rentable
+     que hay aquí: quita ocho caracteres por línea sin encoger ni una letra. */
   p,
   blockquote,
   dd,
   li {
-    max-width: 68ch;
+    max-width: 60ch;
   }
 
   ::selection {
@@ -181,8 +201,12 @@
     font-family: var(--font-pixel), monospace;
     font-weight: 400;
     color: var(--ink);
-    line-height: 1.12;
-    letter-spacing: 0.01em;
+    /* Geist Pixel es monoespaciada y muy ancha, así que un titular de tres
+       líneas acumula mucho aire entre ellas. La interletra pasa de positiva a
+       ligeramente negativa por lo mismo: el avance del pixel ya separa de
+       sobra y no hacía falta ayudarlo. */
+    line-height: 1.1;
+    letter-spacing: -0.005em;
     text-wrap: balance;
     font-variant-numeric: tabular-nums;
   }
@@ -205,11 +229,15 @@
     line-height: 1.5;
   }
 
+  /* El tracking de versalitas baja de 0.16em a 0.12em, aquí y en
+     `.eyebrow-brand`. En una proporcional 0.16em es un valor de manual; sobre
+     una monoespaciada se suma a un avance que ya es ancho de por sí, y era de
+     lo que más contribuía a que el bloque se viera suelto. */
   .eyebrow {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-weight: 600;
     font-size: 0.6875rem;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-soft);
   }
@@ -239,7 +267,7 @@
     gap: 0.6rem;
     font-weight: 600;
     font-size: 0.6875rem;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-mid);
   }
@@ -261,6 +289,10 @@
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.8125rem;
     line-height: 1.7;
+    /* La consola no hereda la interletra negativa del cuerpo. Ahí el bloque se
+       cierra para que el párrafo no se vea suelto; aquí la rejilla fija es el
+       efecto que se busca, así que se deja el avance natural. */
+    letter-spacing: normal;
   }
 
   .terminal-bar {

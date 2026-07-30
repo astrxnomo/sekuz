@@ -19,7 +19,7 @@ export function Cases() {
       <div className="wrap relative">
         <div className="reveal max-w-2xl">
           <p className="eyebrow-brand">{cases.eyebrow}</p>
-          <h2 className="display mt-7 text-[1.5rem] sm:text-[1.875rem] lg:text-[2.375rem]">
+          <h2 className="display mt-7 text-[1.375rem] sm:text-[1.6875rem] lg:text-[2.125rem]">
             {cases.title.map((linea, i) => (
               <span
                 key={linea}
@@ -47,7 +47,7 @@ export function Cases() {
                 </span>
               </div>
 
-              <h3 className="display mt-6 text-[1.125rem] leading-tight lg:text-[1.375rem]">
+              <h3 className="display mt-6 text-[1rem] leading-tight lg:text-[1.25rem]">
                 <Sample>{caso.title}</Sample>
               </h3>
 
