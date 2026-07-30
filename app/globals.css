@@ -1,0 +1,405 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   Sekuz — sistema de diseño
+   Papel crema, láminas stipple a sangre, isometría apenas insinuada.
+
+   Reglas del lenguaje:
+     · Nada de cajas duras. Las secciones se encadenan con fundidos,
+       nunca con bordes ni sombras marcadas.
+     · Cada lámina tiene una zona vacía (casi siempre el cielo, arriba a
+       la izquierda). El texto vive ahí. La composición manda.
+     · Retícula isométrica muy tenue en el fondo, solo como textura.
+     · Geist Pixel en titulares y cifras, Geist Mono en todo lo demás.
+   --------------------------------------------------------------- */
+
+:root {
+  --cream: #f4efe6;
+  --cream-high: #faf7f2;
+  --cream-deep: #ece5d9;
+  --ink: #14120f;
+  --ink-mid: #57534b;
+  /* #6f6a5f y no un gris más claro: sobre el crema da 4.67:1 de contraste,
+     que es el mínimo que exige WCAG AA para texto pequeño. Con el tono
+     anterior (#8b857a) las etiquetas y los índices no lo alcanzaban. */
+  --ink-soft: #6f6a5f;
+  --line: rgba(20, 18, 15, 0.1);
+  --line-strong: rgba(20, 18, 15, 0.2);
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cream-high: var(--cream-high);
+  --color-cream-deep: var(--cream-deep);
+  --color-ink: var(--ink);
+  --color-ink-mid: var(--ink-mid);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --font-pixel: var(--font-pixel);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    /* El scroll suave se declara dentro de no-preference: activarlo por
+       defecto y desactivarlo después deja una ventana en la que el usuario
+       que pidió menos movimiento igualmente lo recibe. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink-mid);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    /* 16px es el mínimo de accesibilidad para cuerpo de texto; antes estaba
+       en 15px. Con monoespaciada el interlineado alto no es opcional: es lo
+       que compensa la rigidez de la rejilla en párrafos largos. */
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  /* Medida de lectura. La monoespaciada ocupa más ancho por carácter, así que
+     el límite se declara en ch y no en rem: 68ch cae dentro del rango óptimo
+     de 45-75 caracteres por línea sea cual sea el cuerpo. */
+  p,
+  blockquote,
+  dd,
+  li {
+    max-width: 68ch;
+  }
+
+  ::selection {
+    background-color: var(--ink);
+    color: var(--cream);
+  }
+
+  /* Barra de scroll sin canal. El gris del sistema es lo único de la ventana
+     que no es papel, y con el crema de fondo se lee como una banda pegada al
+     borde derecho. Aquí queda solo el pulgar, en tinta translúcida.
+
+     Se declara por las dos vías porque no cubren lo mismo: `scrollbar-color`
+     es el estándar y lo entienden Firefox y Chrome nuevos, pero solo acepta
+     dos colores; los pseudo-elementos `::-webkit-scrollbar` son los que
+     permiten dejar el canal en transparente de verdad en WebKit. */
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--line-strong);
+    border: 3px solid transparent;
+    border-radius: 999px;
+    /* El borde transparente adelgaza el pulgar sin estrechar la zona de
+       arrastre: `background-clip: content-box` deja que el relleno respete
+       ese margen mientras el área de puntero sigue siendo la de 10px. */
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--ink-soft);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+  }
+
+  /* ---- Motion ----
+
+     Revelado al entrar en viewport, resuelto en CSS puro con
+     animation-timeline: view(). Sin JavaScript, sin librerías: el navegador
+     conduce la animación fuera del hilo principal.
+
+     Solo se animan transform y opacity, las dos propiedades aceleradas por
+     GPU. Animar width, height o top provoca reflow y arruina el scroll.
+
+     El estado final es el estado por defecto: si el navegador no soporta
+     view() o el usuario desactiva el movimiento, el contenido se ve sin más.
+     Nunca se esconde nada detrás de una animación. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        animation: reveal linear both;
+        animation-timeline: view();
+        /* Arranca cuando falta un 15% para entrar y acaba al 40% de recorrido:
+           el contenido queda legible mucho antes de llegar al centro. */
+        animation-range: entry 15% cover 40%;
+      }
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Red de seguridad global: si alguien pide menos movimiento, se corta todo,
+     incluido el scroll suave. 0.01ms y no 0 para que los eventos de fin de
+     transición sigan disparándose. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* ---- Tipografía ---- */
+
+  .display {
+    font-family: var(--font-pixel), monospace;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* El salto pixel → mono-itálica dentro de un mismo titular es la firma
+     tipográfica del sitio. Suaviza el bloque sin romper el aire técnico. */
+  .tone {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+  }
+
+  .quote {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .pixel {
+    font-family: var(--font-pixel), monospace;
+    font-weight: 400;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- Texturas ---- */
+
+  /* La textura del papel es una sola capa continua y vive en
+     components/Backdrop.tsx, fija al viewport. No se declara por sección a
+     propósito: texturas locales producen saltos visibles al pasar de una
+     sección a otra, que es justo lo que rompe la continuidad. */
+
+  /* ---- Piezas ---- */
+
+  /* Etiqueta de sección: fina, sobre el papel, sin caja pesada */
+  .eyebrow-brand {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+  }
+
+  .eyebrow-brand::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* Bloque de terminal: el guiño dev, reservado a los ejemplos concretos.
+     Es la única superficie oscura del sitio, y por eso funciona. */
+  .terminal {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+
+  .terminal-bar {
+    border-bottom: 1px solid rgba(244, 239, 230, 0.16);
+    padding: 0.5rem 0.9rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(244, 239, 230, 0.55);
+  }
+
+  .terminal-body {
+    padding: 0.9rem;
+  }
+
+  /* El prompt es decorativo: va en pseudo-elemento para no copiarse */
+  .terminal-line::before {
+    content: "$ ";
+    color: rgba(244, 239, 230, 0.45);
+  }
+
+  /* ---- Botones ---- */
+
+  /* Botones planos: superficie apenas distinta del fondo, borde fino y radio
+     mínimo. Sin sombra ni desplazamiento — el estado se comunica cambiando
+     la superficie, no moviendo el bloque. */
+  .btn-primary,
+  .btn-secondary {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 0.8125rem;
+    letter-spacing: 0.02em;
+    padding: 0.7rem 1.35rem;
+    border: 1px solid;
+    border-radius: 3px;
+    transition: background-color 0.15s ease, border-color 0.15s ease,
+      color 0.15s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+
+  .btn-primary:hover {
+    background-color: #262220;
+    border-color: #262220;
+  }
+
+  .btn-secondary {
+    background-color: rgba(250, 247, 242, 0.7);
+    color: var(--ink);
+    border-color: var(--line-strong);
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--cream-high);
+    border-color: var(--ink);
+  }
+
+  /* Esquineras: cuatro marcas en L sobre las corners del bloque, como en el
+     encuadre de un plano. Sustituyen al borde completo — señalan el área sin
+     encajonarla, que es justo lo que hacía que los recuadros se sintieran
+     pegados encima del papel. */
+  .corners {
+    position: relative;
+  }
+
+  .corners::before,
+  .corners::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+  }
+
+  .corners::before {
+    top: 0;
+    background:
+      linear-gradient(var(--ink-soft), var(--ink-soft)) left top / 11px 1px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) left top / 1px 11px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) right top / 11px 1px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) right top / 1px 11px;
+    background-repeat: no-repeat;
+  }
+
+  .corners::after {
+    bottom: 0;
+    background:
+      linear-gradient(var(--ink-soft), var(--ink-soft)) left bottom / 11px 1px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) left bottom / 1px 11px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) right bottom / 11px 1px,
+      linear-gradient(var(--ink-soft), var(--ink-soft)) right bottom / 1px 11px;
+    background-repeat: no-repeat;
+  }
+
+  /* ---- Layout ---- */
+
+  /* Marco: acota el sitio a un ancho de lectura y deja papel a los lados.
+     Las láminas se recortan a este ancho en vez de ir a sangre de ventana,
+     que es lo que las hacía sentirse desbordadas en pantallas grandes. */
+  .frame {
+    width: 100%;
+    max-width: 84rem;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 768px) {
+    .frame {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .frame {
+      padding-inline: 4rem;
+    }
+  }
+
+  /* Contenedor interno del contenido. El padding lateral es menor porque
+     el marco ya aporta el margen exterior. */
+  .wrap {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .wrap {
+      padding-inline: 2.5rem;
+    }
+  }
+}
