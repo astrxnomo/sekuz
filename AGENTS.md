@@ -48,9 +48,10 @@ una razón para dejar aire, no para meter un grabado.
 
 Emparejada quiere decir dos cosas a la vez:
 
-1. **Semántica.** El objeto ES el mecanismo del que habla su texto. La esclusa
-   ilustra «procesos que corren solos y saben cuándo parar» porque una esclusa
-   es literalmente eso. Y cuando la metáfora no es evidente, se dice: las tres
+1. **Semántica.** El objeto ES el mecanismo del que habla su texto. La compuerta
+   de aliviadero ilustra «procesos que corren solos y saben cuándo parar» porque
+   una compuerta es literalmente eso. Y cuando la metáfora no es evidente, se
+   dice: las tres
    láminas de Qué hacemos llevan pie con el nombre del aparato y su lectura, que
    es lo que las separa de ser adorno.
 2. **Estructural.** La lámina comparte márgenes y reglas con el texto. Al ancho
@@ -68,8 +69,12 @@ Emparejada quiere decir dos cosas a la vez:
   sube y la ilustración se queda clavada, así que el bloque se descose a la
   vista. Fue el caso de Proceso.
 - **Un paisaje denso en una casilla pequeña.** `esclusas.webp` es la metáfora
-  exacta de las cuatro fases de Proceso y aun así se descartó: a 250px el
-  recorte lo convierte en una mancha gris. Los paisajes solo se leen a sangre.
+  exacta de las cuatro fases de Proceso, y aun así como paisaje no funcionaba: a
+  250px el recorte lo convertía en una mancha gris, y ni al ancho de la columna
+  llegaba a leerse como lo que era. Los paisajes solo se leen a sangre. La
+  salida no fue cambiar de metáfora sino **de familia**: hoy es un objeto
+  aislado, no un paisaje. Si una imagen falla en su casilla, mira antes si el
+  problema es la familia que si es el sujeto.
 - **Padding para separar columnas iguales.** La del medio lo lleva a los dos
   lados y las de los extremos a uno, así que mide menos y sus piezas arrancan a
   otra altura. Va con `gap` y el divisor en pseudo-elemento a media separación.

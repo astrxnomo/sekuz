@@ -104,11 +104,11 @@ export const pillars = {
       description:
         "Recibe una tarea, consulta tus sistemas, decide dentro de límites acotados y escala a una persona cuando no le alcanza.",
       /* Pie de la lámina. Es lo que convierte el grabado en metáfora y no en
-         adorno: sin él, nadie sabe por qué un semáforo de telégrafo ilustra un
-         agente. Dos partes, aparato y lectura, como el pie de una plancha de
-         catálogo antiguo. */
-      object: "Semáforo óptico",
-      reading: "Lee la situación, decide y transmite",
+         adorno: sin él, nadie sabe por qué un radar ilustra un agente. Dos
+         partes, aparato y lectura, como el pie de una plancha de catálogo
+         antiguo. */
+      object: "Radar de vigilancia",
+      reading: "Barre, distingue y avisa",
       example:
         "Lee cada solicitud entrante, la clasifica, busca el historial del cliente y deja la respuesta lista para aprobar.",
     },
@@ -119,8 +119,8 @@ export const pillars = {
       audience: "Flujos repetitivos entre herramientas que hoy no se hablan.",
       description:
         "La IA entra donde hay que interpretar algo que una automatización tradicional no sabría leer.",
-      object: "Esclusa de canal",
-      reading: "El flujo corre y para donde toca",
+      object: "Compuerta de aliviadero",
+      reading: "El caudal corre y para donde toca",
       example:
         "Llega una factura por correo, se extraen los datos, se validan contra la orden de compra y solo se avisa si algo no cuadra.",
     },
@@ -131,7 +131,7 @@ export const pillars = {
       audience: "Operaciones con lógica propia que ninguna herramienta del mercado cubre.",
       description:
         "La aplicación que el proceso necesita, con acceso por roles y la IA adentro en vez de pegada por fuera.",
-      object: "Caseta de señales",
+      object: "Torre de control",
       reading: "Un puesto para ver y accionar todo",
       example:
         "Un panel donde operaciones ve el estado real de cada caso, con la priorización sugerida y el borrador ya preparado.",

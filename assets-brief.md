@@ -83,14 +83,20 @@ await sharp({ create: { width, height, channels: 3, background: "#14120f" } })
 
 **Lo que este proceso no quita** es la retícula de puntos tenues que el generador
 dibuja en el fondo del panel: es igual de oscura que las texturas claras del
-dibujo, así que ningún umbral las separa. Se resuelve en CSS, con el fundido
-ancho de `Plate` (24%): la retícula se deshace hacia el papel y pasa por una
-mancha del mismo grano que el fondo del sitio, que es lo que tienen las láminas
-grandes. Con un fundido corto vuelve a leerse el cuadrado.
+dibujo, así que ningún umbral las separa. En la serie 1 se disimulaba en CSS,
+con un fundido ancho en `Plate` (24%): la retícula se deshacía hacia el papel y
+pasaba por una mancha del mismo grano que el fondo del sitio.
 
-Para una tanda futura, **pide fondo crema liso y sin retícula de puntos en las
-zonas vacías** y el recorte sale limpio de una. Los originales con papel están
-respaldados por si hay que reprocesar con otro umbral.
+**La serie 2 lo resuelve de raíz pidiendo el fondo liso desde el prompt**, y el
+recorte sale limpio de una: medido sobre la plancha real, el papel del panel
+queda en L 238-247, entero por encima del umbral de 228.
+
+Eso obligó a un ajuste que no es evidente. **El fundido del 24% existía solo
+para comerse la retícula; sin retícula, se come el objeto** — le lavaba la base
+a la torre y el remate a la antena. Está bajado a **8%**, y las láminas se
+componen con un **16% de aire** alrededor de la tinta, de modo que el aparato
+vive entre el 16% y el 84% y el degradado solo cae sobre margen transparente.
+Los dos números se mueven juntos: si sube uno, sube el otro.
 
 ### El prompt del trama grueso
 

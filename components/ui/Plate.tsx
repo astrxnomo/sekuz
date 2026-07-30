@@ -19,20 +19,28 @@ import Image from "next/image";
       uniforme sobre toda la ilustración apaga también el sujeto y entonces no
       aporta nada. */
 
-/* Fundido width (24%), y hace falta que lo sea.
+/* Fundido corto (8%), y ahora sí puede serlo.
 
-   Las viñetas ya vienen sin papel: el crema del panel se convirtió en alfa, así
-   que la tinta cae directamente sobre el papel del sitio. Lo que sobrevive a
-   ese proceso es la retícula de puntos tenues que el generador dibuja en el
-   fondo del panel, y ningún umbral de luminancia la separa del dibujo porque es
-   igual de oscura que sus texturas claras.
+   Estuvo en 24% durante toda la serie 1, y con razón: aquellas viñetas traían
+   una retícula de puntos tenues que el generador dibujaba en el fondo del panel
+   y que ningún umbral de luminancia separaba del dibujo, porque era igual de
+   oscura que sus texturas claras. Sobrevivía al recorte de papel, terminaba en
+   un canto recto y volvía a leerse un cuadrado. El fundido ancho existía para
+   deshacer esa retícula, no para nada más.
 
-   Con el fundido corto de antes, esa retícula terminaba en un canto recto y
-   volvía a leerse un cuadrado. Ancho, se deshace hacia el papel y pasa por lo
-   que es: una mancha de textura del mismo grano que el fondo de la página, que
-   es justo lo que tienen las láminas grandes de la serie. */
+   La serie 2 pide el fondo liso desde el prompt y llega sin retícula: medido,
+   el papel del panel está en L 238-247, entero por encima del umbral de 228. Ya
+   no hay nada que disolver — y un fundido del 24% sin retícula que comerse se
+   come el objeto, que es lo que le lava la base a la torre y el remate a la
+   antena. Con el 8% el margen transparente de la lámina absorbe el fundido y el
+   aparato llega entero.
+
+   Las láminas se generan con un 16% de aire alrededor de la tinta
+   (`scripts/procesar-laminas.mjs`), así que el objeto vive entre el 16% y el
+   84% y el fundido no lo toca. Si se sube este valor por encima de 16 hay que
+   subir ese aire en la misma medida. */
 function mask(desde: string) {
-  return `linear-gradient(to bottom, transparent, #000 24%, #000 76%, transparent), linear-gradient(to ${desde}, transparent, #000 24%, #000 76%, transparent)`;
+  return `linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent), linear-gradient(to ${desde}, transparent, #000 8%, #000 92%, transparent)`;
 }
 
 const VEILS = {
