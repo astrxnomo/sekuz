@@ -2,11 +2,23 @@
 
 Guía para generar más ilustraciones que encajen con la serie sin volver a calibrar el estilo desde cero.
 
-> **La serie 1 está en reemplazo.** Todo lo que describe la primera mitad de
-> este documento sigue en producción y sigue siendo cierto en lo técnico, pero
-> los sujetos cambian: se pasa de aparatos decimonónicos a **infraestructura
-> contemporánea**. El plan está en «Serie 2» al final, y las secciones de
-> técnica (recorte de papel, trama gruesa, costos) valen igual para las dos.
+> ## ⚠️ Estado real, por delante de todo lo demás
+>
+> **El plan de «Serie 2» que ocupa la segunda mitad de este documento no se
+> llevó a término, y el repertorio que describe ya no existe.** Lo que hay hoy
+> en `public/img/` son seis paisajes: `lab`, `faro`, `puente`, `motana`,
+> `acantilado` y `campo` (este último sin usar). El reparto por sección está en
+> `AGENTS.md`, que es la fuente al día.
+>
+> **No hay ninguna viñeta de objeto montada.** Se retiraron por resolución: el
+> lote llegaba a 293-430px para casillas de ~400px y la plancha 2x2 salió en
+> 16:9 en vez de 1:1. Su sitio lo ocupa hoy `components/ui/Diagram.tsx`, dibujo
+> técnico en SVG, que no tiene techo de resolución.
+>
+> Qué sigue siendo cierto de este documento: **toda la técnica.** El bloque de
+> estilo de los prompts, el hallazgo de la imagen de referencia, el recorte de
+> papel a canal alfa, los costos y el tratamiento a `.webp` valen igual. Lo que
+> caducó son las tablas de qué archivo ilustra qué sección.
 
 ## Qué hay hoy
 
