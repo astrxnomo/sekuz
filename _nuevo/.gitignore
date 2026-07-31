@@ -1,7 +1,0 @@
-# Imágenes crudas del generador. Lo que se publica sale procesado a public/img/.
-*
-!*/
-!.gitignore
-!.gitkeep
-!README.md
-!PROMPTS.md
