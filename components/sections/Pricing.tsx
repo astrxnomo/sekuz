@@ -15,7 +15,7 @@ export function Pricing() {
       {/* La lámina se acota a la franja del titular. Si bajara hasta las
           bandas, las tres tarjetas — que son opacas — quedarían como recortes
           pegados encima de la ilustración. */}
-      <Scene src="/img/montanas.webp" position="72% 84%" veil="left" zone="upper" />
+      <Scene src="/img/motana.webp" position="72% 84%" veil="left" zone="upper" />
 
       <div className="wrap relative">
         <div className="reveal max-w-2xl">

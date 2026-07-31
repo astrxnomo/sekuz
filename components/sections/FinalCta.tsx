@@ -8,7 +8,7 @@ export function FinalCta() {
       {/* La cordillera cierra la página desde abajo. El texto queda arriba,
           sobre papel limpio: la cumbre subía por detrás del subtítulo y lo
           volvía difícil de leer. */}
-      <Scene src="/img/cta.webp" position="center 95%" veil="none" zone="lower" />
+      <Scene src="/img/acantilado.webp" position="center 95%" veil="none" zone="lower" />
 
       {/* El padding inferior es generoso a propósito: separa los botones de
           la cumbre para que ni el texto ni el CTA compitan con la montaña. */}

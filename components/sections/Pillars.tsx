@@ -1,14 +1,22 @@
 import { pillars } from "@/lib/content";
 import { Scene } from "@/components/ui/Scene";
-import { Plate } from "@/components/ui/Plate";
+import { Diagram } from "@/components/ui/Diagram";
+import { Swimlane } from "@/components/ui/Swimlane";
 
-/* Una viñeta por capacidad, en el mismo grabado que las láminas grandes.
-   Van por índice y no dentro de `lib/content.ts` porque son decoración: si
-   mañana se reordenan los pilares, el texto manda y la imagen sigue. */
-const plates: Record<string, string> = {
-  "01": "/img/senal.webp", // semáforo de señales — decide y comunica estado
-  "02": "/img/esclusa.webp", // compuertas — el flujo corre y para donde toca
-  "03": "/img/caseta.webp", // puesto de mando — el panel a medida
+/* Un diagrama por capacidad, dibujado en SVG y no recortado de una lámina.
+
+   Aquí hubo viñetas de grabado y no funcionaron por una razón de tamaño, no
+   de gusto: llegaban del generador a 293-430px para una casilla de ~400px, o
+   sea por debajo de 1x, y una trama de puntos a esa escala se deshace en gris.
+   El dibujo técnico no tiene ese techo — es geometría, se ve igual a cualquier
+   tamaño. Ver `components/ui/Diagram.tsx`.
+
+   Van por índice y no dentro de `lib/content.ts` porque el copy manda: si
+   mañana se reordenan los pilares, el texto se mueve y el dibujo lo sigue. */
+const diagrams: Record<string, "radar" | "compuerta" | "torre"> = {
+  "01": "radar", // barrido que distingue y avisa
+  "02": "compuerta", // el caudal corre y para donde toca
+  "03": "torre", // un puesto para ver y accionar todo
 };
 
 export function Pillars() {
@@ -16,7 +24,7 @@ export function Pillars() {
     <section id="pilares">
       {/* Cabecera sobre la lámina del faro, en su cielo vacío */}
       <div className="relative overflow-hidden">
-        <Scene src="/img/hero.webp" position="72% 72%" veil="left" />
+        <Scene src="/img/faro.webp" position="72% 72%" veil="left" />
 
         <div className="wrap relative py-20 lg:py-24">
           <div className="reveal max-w-2xl">
@@ -47,20 +55,19 @@ export function Pillars() {
           por línea, por debajo del rango legible — y con monoespaciada se nota
           el doble. En franja tiene siete columnas de doce y respira.
 
-          La identidad de cada capacidad vive dentro de la lámina, apoyada en su
-          cielo, igual que el titular del hero: índice, nombre y tagline sobre el
-          vacío, y el aparato abajo. La explicación y el ejemplo van al otro
-          lado, así que imagen y texto forman una sola fila y no dos bloques
-          apilados. */}
+          La identidad de cada capacidad vive dentro del diagrama, apoyada en su
+          vacío, igual que el titular del hero: índice, nombre y tagline arriba,
+          y el aparato abajo. La explicación y el ejemplo van al otro lado, así
+          que dibujo y texto forman una sola fila y no dos bloques apilados. */}
       <div className="wrap pb-20 lg:pb-24">
         {pillars.items.map((pillar, i) => {
-          /* Franjas impares con la lámina a la derecha.
+          /* Franjas impares con el diagrama a la derecha.
 
-             Se resuelve con `order` y no reordenando el JSX: en el DOM la
-             lámina va siempre después del texto, así que quien navegue con
+             Se resuelve con `order` y no reordenando el JSX: en el DOM el
+             diagrama va siempre después del texto, así que quien navegue con
              lector de pantalla o tabulador recorre las tres franjas en el mismo
              orden y no va saltando de un lado al otro. */
-          const plateRight = i % 2 === 1;
+          const diagramRight = i % 2 === 1;
 
           return (
             <article
@@ -71,23 +78,20 @@ export function Pillars() {
                  el aire se reparte arriba y abajo y se lee como margen. */
               className="reveal grid items-center gap-8 border-t border-line py-12 last:border-b lg:grid-cols-12 lg:gap-12 lg:py-16"
             >
-              {plates[pillar.index] && (
+              {diagrams[pillar.index] && (
                 <figure
                   className={`relative lg:col-span-4 ${
-                    plateRight ? "lg:order-2 lg:col-start-9" : "lg:col-start-1"
+                    diagramRight ? "lg:order-2 lg:col-start-9" : "lg:col-start-1"
                   }`}
                 >
-                  <Plate
-                    src={plates[pillar.index]}
-                    width={720}
-                    height={720}
-                    veil="top"
-                    className="aspect-[4/5] w-full"
-                    imageClass="object-[50%_100%]"
-                  />
+                  {/* Sin velo, a diferencia de la lámina que había aquí. El
+                      dibujo arranca pasado el 54% de su caja, así que el vacío
+                      de arriba ya está limpio por geometría; un degradado sobre
+                      trazo de un pelo lo habría borrado en vez de apagarlo. */}
+                  <Diagram kind={diagrams[pillar.index]} className="block w-full" />
 
                   {/* Sin padding lateral: el texto arranca en el mismo margen
-                      que el pie, así que la lámina mantiene una sola línea de
+                      que el pie, así que el diagrama mantiene una sola línea de
                       composición. El tope de altura evita que un nombre de tres
                       líneas se meta dentro del aparato. */}
                   <div className="absolute inset-x-0 top-0 max-h-[52%] overflow-hidden pt-1">
@@ -99,7 +103,7 @@ export function Pillars() {
                   </div>
 
                   {/* Pie de plancha: nombra el aparato y dice qué se lee en él.
-                      Es lo que explica por qué una esclusa ilustra una
+                      Es lo que explica por qué una compuerta ilustra una
                       automatización; sin él son tres máquinas de adorno. */}
                   <figcaption className="border-t border-line pt-3">
                     <span className="eyebrow block text-ink">{pillar.object}</span>
@@ -112,7 +116,7 @@ export function Pillars() {
 
               <div
                 className={`lg:col-span-7 ${
-                  plateRight ? "lg:order-1 lg:col-start-1" : "lg:col-start-6"
+                  diagramRight ? "lg:order-1 lg:col-start-1" : "lg:col-start-6"
                 }`}
               >
                 <p className="leading-relaxed">{pillar.description}</p>
@@ -140,6 +144,31 @@ export function Pillars() {
             </article>
           );
         })}
+
+        {/* El límite, cerrando las tres.
+
+            Va al pie y no dentro de una franja porque no pertenece a ninguna
+            capacidad: es la regla que comparten. Y va a todo el ancho porque un
+            diagrama de dos carriles no cabe en una columna de cuatro — el
+            mismo motivo por el que los paisajes solo se leen a sangre.
+
+            La última franja lleva `last:border-b`, así que aquí no hace falta
+            regla superior: se apoya en la que ya cierra el bloque de arriba. */}
+        <div className="reveal grid gap-10 pt-12 lg:grid-cols-12 lg:gap-12 lg:pt-16">
+          <div className="lg:col-span-4">
+            <p className="eyebrow-brand">{pillars.limite.eyebrow}</p>
+            <h3 className="display mt-6 text-[1.125rem] leading-tight lg:text-[1.375rem]">
+              {pillars.limite.title}
+            </h3>
+            <p className="mt-6 text-sm leading-relaxed text-ink-mid">
+              {pillars.limite.intro}
+            </p>
+          </div>
+
+          <div className="lg:col-span-7 lg:col-start-6">
+            <Swimlane />
+          </div>
+        </div>
       </div>
     </section>
   );

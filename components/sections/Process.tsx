@@ -1,9 +1,24 @@
 import { process } from "@/lib/content";
-import { Plate } from "@/components/ui/Plate";
 
 export function Process() {
   return (
     <section id="proceso" className="relative py-20 lg:py-24">
+      {/* Papel limpio, y probado.
+
+          Aquí se intentó meter el viaducto a sangre: un vano tras otro
+          sosteniendo un recorrido es la metáfora de las cuatro fases, y heredaba
+          el sitio de la escalera de esclusas. En pantalla no funciona, y el
+          motivo es estructural, no de encuadre. `Scene` vela un solo lado, y
+          esta es la única sección cuyo lado libre no existe: el titular ocupa la
+          izquierda y las cuatro fases ocupan la derecha de arriba abajo. Con
+          `veil="left"` los arcos caen enteros sobre «Diagnóstico» y
+          «Prototipo», y el texto deja de leerse; con `veil="top"` se vela la
+          franja completa y el puente desaparece.
+
+          Las secciones que sí llevan lámina tienen todas un lado libre — el
+          titular a la izquierda y nada a la derecha. Esta no, así que se queda
+          en papel. La línea de tiempo vertical con sus cuatro hitos ya es el
+          gráfico de la sección. */}
       <div className="wrap relative">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
           {/* Ya puede llevar `reveal`: el aviso de antes valía porque el
@@ -22,26 +37,6 @@ export function Process() {
               ))}
             </h2>
             <p className="mt-8 leading-relaxed text-ink-mid">{process.intro}</p>
-
-            {/* Escalera de esclusas al pie del titular: el agua baja por etapas
-                y cada compuerta no abre hasta que la anterior cerró, que es
-                literalmente lo que dicen las cuatro fases de al lado.
-
-                Esta columna acababa 334px antes que la de fases, y ese hueco es
-                el sitio. El ancho es lo que decide si funciona: al ancho de la
-                columna son 427px y la escalera se lee entera. Metida antes en
-                una franja de 254px, el crop la dejaba en una mancha gris —
-                es un paisaje denso, no un objeto aislado, y necesita tamaño.
-
-                Encuadre al pie para que se vean las compuertas escalonadas, que
-                son lo que hay que reconocer; el cielo de arriba no aporta. */}
-            <Plate
-              src="/img/esclusas.webp"
-              width={1200}
-              height={1407}
-              className="mt-12 hidden aspect-[5/4] w-full lg:block"
-              imageClass="object-[52%_100%]"
-            />
           </div>
 
           {/* Las cuatro fases sobre una línea de tiempo vertical */}

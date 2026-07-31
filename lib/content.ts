@@ -137,6 +137,31 @@ export const pillars = {
         "Un panel donde operaciones ve el estado real de cada caso, con la priorización sugerida y el borrador ya preparado.",
     },
   ],
+
+  /* El límite, al pie de las tres capacidades.
+
+     Las tres comparten una misma regla y no se dice en ningún sitio: la
+     máquina trabaja hasta un umbral explícito y cruzarlo está diseñado, no es
+     un fallo. Es lo que contesta la objeción de la FAQ («¿y si el agente se
+     equivoca?») y lo único de esta página que un competidor no puede copiar
+     con un cambio de copy — o su producto tiene el umbral, o no lo tiene.
+
+     Va aquí y no en la FAQ porque en la FAQ ya está enterrado en un acordeón
+     cerrado. Los rótulos alimentan el diagrama de `components/ui/Swimlane.tsx`;
+     si cambian, cambia el dibujo. */
+  limite: {
+    eyebrow: "El límite",
+    title: "Hasta dónde decide sola.",
+    intro:
+      "Ninguna de las tres decide sin techo. Cada proceso lleva escrito qué puede resolver por su cuenta y qué tiene que pasar por una persona, y ese salto no es una avería: es parte del diseño.",
+    lanes: { maquina: "Máquina", persona: "Persona" },
+    pasos: ["Recibe", "Resuelve", "Registra"],
+    persona: "Aprueba",
+    umbral: ["margen bajo mínimo", "o falta existencia"],
+    vuelta: "vuelve con el visto",
+    cierre: "cierra el caso",
+    pie: "Trazo continuo, camino automático. Trazo cortado, interviene una persona.",
+  },
 };
 
 export const process = {
@@ -221,6 +246,31 @@ export const results = {
     { value: "310 h", caption: "Horas manuales eliminadas por mes", note: "promedio por cliente" },
     { value: "91 %", caption: "Reducción de errores de captura", note: "caso servicios contables" },
   ],
+
+  /* La serie que alimenta la matriz de densidad.
+     Ver `components/ui/DensityMatrix.tsx`.
+
+     ⚠️ INVENTADA, como el resto de este archivo. Y aquí importa más que en
+     ningún otro sitio: una cifra falsa en texto se lee como una cifra; una
+     serie falsa DIBUJADA se lee como una medición, que es una afirmación más
+     fuerte y más difícil de matizar. Por eso la nota va entre [[ ]] y sale
+     resaltada en pantalla hasta que alguien la sustituya.
+
+     Cuatro semanas de lunes a domingo, 28 valores. Si cambias la longitud, la
+     matriz se recompone sola mientras sea múltiplo de 7. */
+  serie: {
+    label: "Solicitudes resueltas sin intervención",
+    nota: "[[Últimas cuatro semanas · datos de muestra]]",
+    /* Por encima de esto el día se marca: son las jornadas que superaron la
+       capacidad prevista y sirvieron para redimensionar. */
+    umbral: 88,
+    dias: [
+      62, 71, 68, 74, 80, 22, 14,
+      69, 77, 91, 83, 86, 27, 12,
+      74, 82, 79, 95, 88, 31, 18,
+      81, 88, 86, 92, 97, 34, 16,
+    ],
+  },
 };
 
 /* Bandas de inversión.

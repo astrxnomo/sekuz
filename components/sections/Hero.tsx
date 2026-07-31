@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden">
       {/* Las antenas quedan abajo a la derecha; el titular ocupa el cielo */}
-      <Scene src="/img/observatorio.webp" position="70% 78%" veil="left" priority />
+      <Scene src="/img/lab.webp" position="70% 78%" veil="left" priority />
 
       <div className="wrap relative py-20 lg:py-24">
         <div className="reveal max-w-2xl">
